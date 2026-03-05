@@ -5,7 +5,6 @@
   "author": "Rc4w5",
   "main": "public/electron.js",
   "private": true,
-  "homepage": ".",
   "dependencies": {
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
