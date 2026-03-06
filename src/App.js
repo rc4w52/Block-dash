@@ -372,17 +372,15 @@ export default function App() {
     };
   }, []);
 
-  // Bloquer scroll mobile
+  // Bloquer scroll mobile mais autoriser les taps
   useEffect(() => {
-    const prevent = (e) => e.preventDefault();
-    document.addEventListener("touchmove", prevent, { passive: false });
-    document.addEventListener("touchstart", prevent, { passive: false });
+    const preventMove = (e) => e.preventDefault();
+    document.addEventListener("touchmove", preventMove, { passive: false });
     document.body.style.overflow = "hidden";
     document.body.style.position = "fixed";
     document.body.style.width = "100%";
     return () => {
-      document.removeEventListener("touchmove", prevent);
-      document.removeEventListener("touchstart", prevent);
+      document.removeEventListener("touchmove", preventMove);
       document.body.style.overflow = "";
       document.body.style.position = "";
       document.body.style.width = "";
@@ -391,9 +389,10 @@ export default function App() {
 
   // Touch controls
   const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
   const handleTouchStart = (e) => {
-    e.preventDefault();
     touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
   };
   const handleTouchMove = (e) => {
     e.preventDefault();
@@ -406,7 +405,7 @@ export default function App() {
     playerXRef.current = newX;
     setPlayerX(newX);
   };
-  const handleTouchEnd = () => { touchStartX.current = null; };
+  const handleTouchEnd = () => { touchStartX.current = null; touchStartY.current = null; };
 
   const levelColor = ["#6BCB77", "#FFD93D", "#FF9F43", "#FF6B6B", "#FF6FC8", "#4D96FF"][Math.min(level - 1, 5)];
 
@@ -454,7 +453,6 @@ export default function App() {
           border: `2px solid ${world.playerColor.glow}33`,
           transition: "background 1s, box-shadow 1s",
           cursor: "none",
-          touchAction: "none",
         }}
         onMouseMove={gameState === "playing" ? (e) => {
           const rect = e.currentTarget.getBoundingClientRect();
