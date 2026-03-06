@@ -429,7 +429,7 @@ export default function App() {
       )}
 
       <div
-        style={{ position: "relative", width: GAME_WIDTH, height: GAME_HEIGHT, background: world.bg, borderRadius: 16, overflow: "hidden", boxShadow: `0 0 40px ${skinColor.glow}33,0 20px 60px rgba(0,0,0,0.6)`, border: `2px solid ${skinColor.glow}22`, transition: "background 1s", cursor: "none" }}
+        style={{ position: "relative", width: GAME_WIDTH, height: GAME_HEIGHT, background: world.bg, borderRadius: 16, overflow: "hidden", boxShadow: `0 0 40px ${skinColor.glow}33,0 20px 60px rgba(0,0,0,0.6)`, border: `2px solid ${skinColor.glow}22`, transition: "background 1s" }}
         onMouseMove={screen === "playing" ? (e) => {
           const rect = e.currentTarget.getBoundingClientRect();
           let nx = Math.max(PLAYER_SIZE / 2 + 10, Math.min(GAME_WIDTH - PLAYER_SIZE / 2 - 10, e.clientX - rect.left));
